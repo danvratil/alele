@@ -11,7 +11,6 @@ public:
         return std::make_unique<Storage>();
     }
 
-
     bool needsUpgrade() const { return false; };
     void startUpgrade() {};
 };

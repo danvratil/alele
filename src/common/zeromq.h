@@ -43,22 +43,6 @@ enum SocketType {
     Stream = ZMQ_STREAM
 };
 
-template<typename Op>
-class Operation {
-    bool await_ready() const noexcept {
-        return false;
-    }
-
-    bool await_suspend() const noexcept {
-        
-    }
-
-};
-
-class RecvOperation : Operation<RecvOperation> {
-
-};
-
 class Socket
 {
 public:
@@ -86,12 +70,9 @@ public:
         return true;
     }
 
-    RecvOperation recv(zmq_msg_t *msg) {
-        return RecvOperation{this, msg};
-        zmq_msg_t msg;
-        zmq_msg_init(&msg);
-        zmq_msg_recv(&msg, mSocket.get(), 0);
-        return {static_cast<const char *>(zmq_msg_data(&msg)), zmq_msg_size(&msg)};
+    void recv(zmq_msg_t *msg) {
+        zmq_msg_init(msg);
+        zmq_msg_recv(msg, mSocket.get(), 0);
     }
 
     void *get() {

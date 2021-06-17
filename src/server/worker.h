@@ -15,9 +15,12 @@ public:
     }
 
     void run() {
+        zmq_msg_t msg;
+        zmq_msg_init(&msg);
         while (true) {
-            const auto msg = co_await mSocket.recv();
+            mSocket.recv(&msg);
         }
+        zmq_msg_close(&msg);
     }
 
 private:

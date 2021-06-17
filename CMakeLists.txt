@@ -10,12 +10,17 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 20)
 
+enable_testing()
+
 # --------------------------------------------------------#
 # Dependencies
 # --------------------------------------------------------#
 
 find_package(libzmq 4.3 REQUIRED)
 find_package(Threads REQUIRED)
+find_package(Xapian REQUIRED)
+find_package(Catch2 REQUIRED)
+find_package(msgpack REQUIRED)
 
 
 # --------------------------------------------------------#
@@ -23,3 +28,4 @@ find_package(Threads REQUIRED)
 # --------------------------------------------------------#
 
 add_subdirectory(src)
+add_subdirectory(tests)
