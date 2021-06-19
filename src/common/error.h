@@ -2,7 +2,14 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#define CATCH_CONFIG_MAIN
-#include <catch2/catch.hpp>
+#pragma once
 
+#include <QString>
 
+namespace Alele {
+
+struct Error {
+    QString message;
+};
+
+} // namespace Alele

@@ -4,32 +4,31 @@
 
 #include "common/id.h"
 
-#include <catch2/catch.hpp>
+#include <gtest/gtest.h>
 
 #include <sstream>
 
-TEST_CASE("Id::comparison", "[common][id]") {
-
+TEST(Id, comparison) {
     {
         Alele::Id id1{'E', 42};
         Alele::Id id2{'E', 42};
-        REQUIRE(id1 == id2);
-        REQUIRE_FALSE(id1 < id2);
-        REQUIRE_FALSE(id1 > id2);
-        REQUIRE_FALSE(id1 != id2);
+        EXPECT_EQ(id1, id2);
+        EXPECT_FALSE(id1 < id2);
+        EXPECT_FALSE(id1 > id2);
+        EXPECT_FALSE(id1 != id2);
     }
 
     {
         Alele::Id id1{'E', 42};
         Alele::Id id2{'F', 42};
-        REQUIRE(id1 != id2);
-        REQUIRE_FALSE(id1 < id2);
-        REQUIRE(id1 > id2);
-        REQUIRE_FALSE(id1 == id2);
+        EXPECT_NE(id1, id2);
+        EXPECT_FALSE(id1 < id2);
+        EXPECT_GT(id1, id2);
+        EXPECT_FALSE(id1 == id2);
     }
 }
 
-TEST_CASE("Id::serialize", "[common][id]") {
+TEST(Id, serialization) {
     std::stringstream stream;
 
     Alele::Id in('E', 42);
@@ -37,5 +36,5 @@ TEST_CASE("Id::serialize", "[common][id]") {
 
     msgpack::object_handle handle;
     msgpack::unpack(handle, stream.str().c_str(), stream.str().size());
-    REQUIRE(in == handle->as<Alele::Id>());
+    EXPECT_EQ(in, handle->as<Alele::Id>());
 }

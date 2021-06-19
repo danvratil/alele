@@ -1,10 +1,13 @@
 set(aleleserver_SRCS
-    main.cpp
+    clientservice.cpp
+    storage.cpp
+    storage/directorystorage.cpp
 )
 
 add_executable(aleleserver ${aleleserver_SRCS})
 target_link_libraries(aleleserver
     Threads::Threads
     alelecommon
+    aleleservices
 )
 

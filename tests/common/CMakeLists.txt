@@ -1,14 +1,13 @@
 set(common_tests_SRCS
-    main.cpp
     id_test.cpp
 )
-
-include(Catch)
-include(ParseAndAddCatchTests)
 
 add_executable(common_tests ${common_tests_SRCS})
 target_link_libraries(common_tests
     alelecommon
-    Catch2::Catch2)
+    GTest::gtest
+    GTest::gtest_main)
+target_compile_definitions(common_tests PUBLIC UNIT_TESTS)
 
-catch_discover_tests(common_tests TEST_PREFIX "Common::")
+gtest_discover_tests(common_tests TEST_PREFIX "common.")
+

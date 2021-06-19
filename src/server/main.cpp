@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#include "common/zeromq.h"
 #include "storage.h"
 #include "workermanager.h"
 
 using namespace Alele;
 using namespace Alele::Server;
 
+#if 0
 const char *getFrontendSocketBind() {
     return "ipc://@alele-frontend";
 }
@@ -20,6 +20,7 @@ const char *getBackendSocketBind() {
 void runBroker(ZMQ::Socket &frontendSocket, ZMQ::Socket &backendSocket) {
     zmq_proxy(frontendSocket.get(), backendSocket.get(), nullptr);
 }
+#endif
 
 int main(int argc, char **argv) {
     // TODO: single-instance application (use DBus)
@@ -33,6 +34,7 @@ int main(int argc, char **argv) {
         storage->startUpgrade();
     }
 
+#if 0
     ZMQ::Context brokerContext;
     ZMQ::Socket frontendSocket{brokerContext, ZMQ::SocketType::Router};
     ZMQ::Socket backendSocket{brokerContext, ZMQ::SocketType::Dealer};
@@ -50,5 +52,6 @@ int main(int argc, char **argv) {
     // to backend
     runBroker(frontendSocket, backendSocket);
 
+#endif
     return 0;
 }

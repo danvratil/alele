@@ -1,18 +1,41 @@
+// SPDX-FileCopyrightText: 2021 Daniel Vrátil <dvratil@kde.org>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
+
 #pragma once
 
 #include <memory>
+
+#include "storage/directorystorage.h"
 
 namespace Alele::Server {
 
 class Storage
 {
 public:
-    static std::unique_ptr<Storage> init() {
-        return std::make_unique<Storage>();
-    }
+    DirectoryStorage &directories();
 
-    bool needsUpgrade() const { return false; };
-    void startUpgrade() {};
+private:
+    DirectoryStorage m_directoryStorage;
 };
 
-} // namespace Server
+} // namespace Alele::Server
+
+#ifdef UNIT_TESTS
+
+#include <gmock/gmock.h>
+
+namespace Alele::Server {
+
+class MockStorage
+{
+public:
+    MockDirectoryStorage &directories();
+
+private:
+    MockDirectoryStorage m_directoryStorage;
+};
+
+} // namespace Alele::Server
+
+#endif

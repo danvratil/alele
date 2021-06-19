@@ -66,7 +66,7 @@ private:
 
 namespace std {
 
-size_t hash<Alele::Id>::operator()(const Alele::Id id) const {
+inline size_t hash<Alele::Id>::operator()(const Alele::Id id) const {
     return std::hash<uint64_t>{}(id.m_val);
 }
 
@@ -74,7 +74,7 @@ size_t hash<Alele::Id>::operator()(const Alele::Id id) const {
 
 namespace msgpack::adaptor {
 
-const msgpack::object &convert<Alele::Id>::operator()(const msgpack::object &obj, Alele::Id &id) const {
+inline const msgpack::object &convert<Alele::Id>::operator()(const msgpack::object &obj, Alele::Id &id) const {
     if (obj.type != msgpack::type::POSITIVE_INTEGER) {
         throw msgpack::type_error{};
     }
@@ -83,7 +83,7 @@ const msgpack::object &convert<Alele::Id>::operator()(const msgpack::object &obj
 }
 
 template<typename Stream>
-msgpack::packer<Stream> &pack<Alele::Id>::operator()(msgpack::packer<Stream> &o, Alele::Id id) const {
+inline msgpack::packer<Stream> &pack<Alele::Id>::operator()(msgpack::packer<Stream> &o, Alele::Id id) const {
     o.pack(id.m_val);
     return o;
 }
